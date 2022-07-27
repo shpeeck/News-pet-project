@@ -3,3 +3,7 @@
 - Активируем виртуальное окружение env\Scripts\activate
 - Устанавливаем зависимости pip install -r requirements.txt
 - Запускаем проект -  python manage.py runserver
+
+
+SuperUser - name: admin, pass: admin123
+
