@@ -23,7 +23,7 @@
                                         <img src="{% static 'images/' %}{{ post.foto }}" alt="news" class="img-fluid">
                                     </a>
                                     <div class="topic-box-top-xs">
-                                        <div class="topic-box-sm color-cod-gray mb-20">{{ post.category }}</div>
+                                        <div class="topic-box-sm color-cod-gray mb-20">{{ post.category|upper }}</div>
                                     </div>
                                 </div>
                                 <div class="media-body media-padding30 p-mb-none-child">
@@ -50,6 +50,23 @@
 
                     </div>
                     {% endfor %}
+                    <div class="pagination">
+                        <span class="step-links" class="reg">
+                            {% if posts.has_previous %}
+                                <a href="?page=1" class="reg">&laquo; первая</a>
+                                <a href="?page={{ posts.previous_page_number }}" class="reg">предыдущая</a>
+                            {% endif %}
+                    
+                            <span class="reg_f">
+                                Страница {{ posts.number }} из {{ posts.paginator.num_pages }}.
+                            </span>
+                    
+                            {% if posts.has_next %}
+                                <a href="?page={{ posts.next_page_number }}" class="reg">следующая</a>
+                                <a href="?page={{ posts.paginator.num_pages }}" class="reg">последняя &raquo;</a>
+                            {% endif %}
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>

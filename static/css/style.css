@@ -192,3 +192,10 @@
 .reg:hover {
     color: #E53935;
 }
+
+.reg_f {
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #787878;
+    margin:0 5px;
+}
