@@ -11,53 +11,50 @@
                             <div class="col-lg-8 col-md-12 d-flex align-items-center">
                                 <ul class="header-social">
                                     <li>
-                                        <a href="#"
-                                            title="facebook">
+                                        <a href="#" title="facebook">
                                             <i class="fa fa-facebook" aria-hidden="true"></i>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#"
-                                            title="twitter">
+                                        <a href="#" title="twitter">
                                             <i class="fa fa-twitter" aria-hidden="true"></i>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#"
-                                            title="google-plus">
+                                        <a href="#" title="google-plus">
                                             <i class="fa fa-google-plus" aria-hidden="true"></i>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#"
-                                            title="linkedin">
+                                        <a href="#" title="linkedin">
                                             <i class="fa fa-linkedin" aria-hidden="true"></i>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#"
-                                            title="pinterest">
+                                        <a href="#" title="pinterest">
                                             <i class="fa fa-pinterest" aria-hidden="true"></i>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#"
-                                            title="rss">
+                                        <a href="#" title="rss">
                                             <i class="fa fa-rss" aria-hidden="true"></i>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#"
-                                            title="vimeo">
+                                        <a href="#" title="vimeo">
                                             <i class="fa fa-vimeo" aria-hidden="true"></i>
                                         </a>
                                     </li>
                                 </ul>
                             </div>
-                            
+
                             <div class="col-lg-4 col-md-12 d-flex flex-row-reverse">
                                 <ul class="news-info-list text-center--md">
-                                    <li><a class="reg" href="#">вход</a>|<a class="reg" href="#">регистрация</a></li>
+                                    {% if user.is_authenticated %}
+                                    <li><a class="reg" href="{% url 'logout' %}">выход</a></li>
+                                    {% else %}
+                                    <li><a class="reg" href="{% url 'login' %}">вход</a>|<a class="reg" href="{% url 'register' %}">регистрация</a></li>
+                                    {% endif %}
                                 </ul>
                             </div>
                         </div>
