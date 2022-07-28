@@ -6,4 +6,4 @@
 
 
 SuperUser - name: admin, pass: admin123
-
+user - jenya_vas@mail.ru zx78op00

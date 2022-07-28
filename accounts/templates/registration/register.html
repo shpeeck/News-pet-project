@@ -4,19 +4,17 @@
 
 {% if not user.is_authenticated %}
 <div class="container">
-    <h1 class="text-center">Регистрация</h1>
     <div class="col-lg-8 col-lg-offset-3">
         <form method="post" class="reg_form">
+            <h1 class="text-center">Регистрация</h1>
             {% csrf_token %}
             {% for field in form %}
             <p>
                 {{ field.label_tag }}<br>
-
                 {{ field }}
                 {% if field.help_text %}
                 <span class="help-text-register">{{ field.help_text }}</span>
                 {% endif %}
-
             </p>
             {% endfor %}
             <button type="submit" class="btn btn-success">Зарегистрироваться</button>

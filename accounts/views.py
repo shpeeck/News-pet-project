@@ -16,7 +16,7 @@ class RegisterFormView(FormView):
 
     def form_valid(self, form):
         print('dfsdfsfssdfsdsdfsf', form)
-        # form.save()
+        form.save()
         return super().form_valid(form)
 
 # def regist(request):

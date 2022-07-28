@@ -51,7 +51,7 @@
                             <div class="col-lg-4 col-md-12 d-flex flex-row-reverse">
                                 <ul class="news-info-list text-center--md">
                                     {% if user.is_authenticated %}
-                                    <li><a class="reg" href="{% url 'logout' %}">выход</a></li>
+                                    <li>Привет {{ request.user.username }}! <a class="reg" href="{% url 'logout' %}">выход</a></li>
                                     {% else %}
                                     <li><a class="reg" href="{% url 'login' %}">вход</a>|<a class="reg" href="{% url 'register' %}">регистрация</a></li>
                                     {% endif %}
