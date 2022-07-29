@@ -130,3 +130,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+AUTH_USER_MODEL = 'accounts.User'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+# выводит смену пароля не на почту а в консоль
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

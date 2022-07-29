@@ -1,11 +1,32 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+
+User =  get_user_model()
+
+class UserCreation(UserCreationForm):
+    # username = forms.CharField(label='Имя', required=True, max_length=50)
+    email = forms.EmailField(label='Email', max_length=254, help_text='*')
+    first_name = forms.CharField(label='Имя', required=True, max_length=50)
+    last_name = forms.CharField(label='Фамилия', required=True, max_length=50)
+    
+    class Meta(UserCreationForm.Meta):
+        model = User
+        fields = ('email', 'first_name', 'last_name', 'password1')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['email'].widget.attrs['placeholder'] = 'Почта'
+        self.fields['first_name'].widget.attrs['placeholder'] = 'Имя'
+        self.fields['last_name'].widget.attrs['placeholder'] = 'Фамилия'
+        self.fields['password1'].widget.attrs['placeholder'] = 'Пароль'
 
 class RegistrForm(UserCreationForm):
     email = forms.EmailField(label='Email', max_length=254, help_text='*')
     first_name = forms.CharField(label='Имя', required=True, max_length=50)
     last_name = forms.CharField(label='Фамилия', required=True, max_length=50)
+
 
     # error_messages = {
     #     'password_mismatch': ("Пароли не совпадают."),
