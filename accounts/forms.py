@@ -1,7 +1,8 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, authenticate
+from . import views
 
 User =  get_user_model()
 
@@ -53,6 +54,29 @@ class RegistrForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
+# class MyAuthenticationForm(AuthenticationForm):
+#     def clean(self):
+#         username = self.cleaned_data.get('username')
+#         email = self.cleaned_data.get('email')
+#         password = self.cleaned_data.get('password')
+#         print('e', email, password)
+
+#         if username is not None and password:
+#             self.user_cache = authenticate(self.request, username=email, password=password)
+#             print('email is Nine')
+        #     if not self.user_cache.email_verify:
+        #         views.send_mail_verify(self.request, self.user_cache)
+        #         print('error1')
+        #     #     raise ValidationError(
+        #     # 'Check email for verify', code='invalid_login')
+        #     if self.user_cache is None:
+        #         # raise self.get_invalid_login_error()
+        #         print('error2')
+        #     else:
+        #         self.confirm_login_allowed(self.user_cache)
+        # return self.cleaned_data
+
 
 
     # def __init__(self, *args, **kwargs):

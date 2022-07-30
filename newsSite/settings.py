@@ -136,3 +136,10 @@ LOGOUT_REDIRECT_URL = '/'
 
 # выводит смену пароля не на почту а в консоль
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+#  отправка подтверждения на почту
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'shpeeck@gmail.com'
+EMAIL_HOST_PASSWORD = 'zx78op00'
+EMAIL_PORT = 587

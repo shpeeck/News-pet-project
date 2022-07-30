@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="col-lg-12 text-center">
+        <p>Неправильная ссылка. Попробуйте войти снова <a href="{% url 'login' %}">Логин</a></p>
+    </div>
+</div>
+
+{% endblock content %}
