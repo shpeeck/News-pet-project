@@ -6,7 +6,7 @@ from django.views import View
 from django.views.generic import FormView
 
 from django.shortcuts import render
-from .forms import RegistrForm, UserCreation
+from .forms import RegistrForm, UserCreation, ProfileForm
 
 # email
 from django.core.mail import EmailMessage
@@ -109,3 +109,27 @@ class LogoutView(View):
     def get(self, request):
         logout(request)
         return redirect(reverse('home'))
+
+
+def user(request):
+    try:
+        # user = User.objects.get(pk=request.user.id)
+        user = request.user
+        return render(request, 'registration/user.html', context={'user': user})
+    except: 
+        user =  None
+        return render(request, 'registration/user.html', context={'user': user})
+
+def user_update(request):
+    user = request.user
+    if request.method == "POST":
+        form = ProfileForm(request.POST)
+        if form.is_valid():
+            user.first_name = form.cleaned_data['first_name'] 
+            user.last_name = form.cleaned_data['last_name']
+            user.save()
+            # return redirect(reverse('update'))
+    else:
+        default_data = {'first_name': user.first_name, 'last_name': user.last_name}
+        form = ProfileForm(default_data)
+    return render(request, 'registration/update.html', {'form': form, 'user': user})

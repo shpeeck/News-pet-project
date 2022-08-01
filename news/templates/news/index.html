@@ -1,6 +1,14 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block search %}
+<form action="{% url 'home' %}" method="GET" class="header-search-light my-search">
+    <input type="text" name='search' placeholder="Search...." required="">
+    <input type="submit" value='Поиск'>
+</form>
+{% endblock %}
+
+
 {% block content %}
 
 <!-- More News Area Start Here -->
@@ -18,8 +26,7 @@
                         <div class="col-md-12 col-sm-6 col-12 mb-30">
                             <div class="media item-shadow-gray bg-body media-none--sm">
                                 <div class="position-relative width-36 width43-lg">
-                                    <a href="{% url 'post' post.id %}"
-                                        class="img-opacity-hover img-overlay-70">
+                                    <a href="{% url 'post' post.id %}" class="img-opacity-hover img-overlay-70">
                                         <img src="{{ post.image }}" alt="{{ post.alt_image }}" class="img-fluid">
                                     </a>
                                     <div class="topic-box-top-xs">
@@ -61,17 +68,17 @@
                     <div class="pagination row">
                         <span class="step-links col-12 text-center reg">
                             {% if posts.has_previous %}
-                                <a href="?page=1" class="reg">&laquo; первая</a>
-                                <a href="?page={{ posts.previous_page_number }}" class="reg">предыдущая</a>
+                            <a href="?page=1" class="reg">&laquo; первая</a>
+                            <a href="?page={{ posts.previous_page_number }}" class="reg">предыдущая</a>
                             {% endif %}
-                    
+
                             <span class="reg_f">
                                 Страница {{ posts.number }} из {{ posts.paginator.num_pages }}.
                             </span>
-                    
+
                             {% if posts.has_next %}
-                                <a href="?page={{ posts.next_page_number }}" class="reg">следующая</a>
-                                <a href="?page={{ posts.paginator.num_pages }}" class="reg">последняя &raquo;</a>
+                            <a href="?page={{ posts.next_page_number }}" class="reg">следующая</a>
+                            <a href="?page={{ posts.paginator.num_pages }}" class="reg">последняя &raquo;</a>
                             {% endif %}
                         </span>
                     </div>

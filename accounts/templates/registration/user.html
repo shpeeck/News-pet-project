@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-sm-6 col-12 mb-30">
+            <div class="media item-shadow-gray bg-body media-none--sm">
+                <div class="position-relative width-36 width43-lg">
+                    <div class="topic-box-top-xs">
+                        <div class="topic-box-sm color-cod-gray mb-20">Информация о пользователе</div>
+                    </div>
+                </div>
+                <div class="media-body media-padding30 p-mb-none-child">
+                        <p>Имя: {{ user.first_name }}</p>
+                        <p>Фамилия: {{ user.last_name }}</p>
+                        <p>Электронная почта: {{ user.email }}</p>
+                        <br>
+                        
+                        <a href="{% url 'profile_update' %}">Редактировать</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

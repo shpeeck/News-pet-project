@@ -221,6 +221,76 @@
 <body cz-shortcut-listen="true" style="margin-top: 0px;">
 
     {% include 'header.html' %}
+    <div class="main-menu-area bg-body" id="sticker">
+        <div class="container">
+            <div class="row no-gutters d-flex align-items-center">
+                <div class="col-lg-9 position-static d-none d-lg-block">
+                    <div class="ne-main-menu">
+                        <nav id="dropdown" style="display: block;">
+                            <ul>
+                                <li class="active">
+                                    <a href="{% url 'home' %}">Главная</a>
+
+                                </li>
+                                <li>
+                                    <a href="{% url 'home' %}">Политика</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'home' %}">Бизнес</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'home' %}">Спорт</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'home' %}">Мода</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'home' %}">Путешествия</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-12 text-right position-static">
+                    <div class="header-action-item on-mobile-fixed">
+                        <ul>
+                            <li>
+                                {% block search %}
+                                
+                                {% endblock %}
+                            </li>
+                            <!-- <li class="d-none d-sm-block d-md-block d-lg-none">
+                                <button type="button" class="login-btn" data-toggle="modal"
+                                    data-target="#myModal">
+                                    <i class="fa fa-user" aria-hidden="true"></i>Sign in
+                                </button>
+                            </li>
+                            <li>
+                                <div id="side-menu-trigger" class="offcanvas-menu-btn offcanvas-btn-repoint">
+                                    <a href="https://www.radiustheme.com/demo/html/newsedge/newsedge/index2.html#"
+                                        class="menu-bar">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </a>
+                                    <a href="https://www.radiustheme.com/demo/html/newsedge/newsedge/index2.html#"
+                                        class="menu-times close">
+                                        <span></span>
+                                        <span></span>
+                                    </a>
+                                </div>
+                            </li> -->
+                        </ul>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</header>
+<!-- Header Area End Here -->
+
     {% block content %} {% endblock content %}
     {% include 'footer.html' %}
 
