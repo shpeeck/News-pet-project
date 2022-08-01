@@ -31,7 +31,9 @@ def send_mail_verify(request, user):
     email = EmailMessage('Verify email', message, to=[user.email],)
     email.send()
 
+
 User = get_user_model()
+
 
 class EmailVerify(View):
     def get(self, request, uidb64, token):
@@ -55,7 +57,6 @@ class EmailVerify(View):
         return user
 
 
-
 class RegisterFormView(View):
     template_name = 'registration/register.html'
 
@@ -69,7 +70,7 @@ class RegisterFormView(View):
         form = UserCreation(request.POST)
         if form.is_valid():
             form.save()
-            username = form.cleaned_data.get('username')
+            # username = form.cleaned_data.get('username')
             email = form.cleaned_data.get('email')
             password = form.cleaned_data.get('password1')
             user = authenticate(username=email, password=password)
@@ -102,6 +103,7 @@ class MyLoginView(LoginView):
         else:
             send_mail_verify(self.request, self.user)
             return redirect('confirm')
+
 
 class LogoutView(View):
     def get(self, request):

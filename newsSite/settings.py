@@ -140,6 +140,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 #  отправка подтверждения на почту
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'shpeeck@gmail.com'
-EMAIL_HOST_PASSWORD = 'zx78op00'
+EMAIL_HOST_USER = 'admin@gmail.com'
+EMAIL_HOST_PASSWORD = 'your_pass'
 EMAIL_PORT = 587

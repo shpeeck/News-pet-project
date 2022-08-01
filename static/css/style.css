@@ -203,3 +203,7 @@
 .reg_form {
     margin: 50px 0;
 }
+
+.my-search{
+    display: flex;
+}
