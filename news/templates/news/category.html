@@ -28,7 +28,7 @@
                             <div class="media item-shadow-gray bg-body media-none--sm">
                                 <div class="position-relative width-36 width43-lg">
                                     <a href="{% url 'post' post.id %}" class="img-opacity-hover img-overlay-70">
-                                        <img src="{{ post.image }}" alt="{{ post.alt_image }}" class="img-fluid">
+                                        <img src="../../{{ post.image }}" alt="{{ post.alt_image }}" class="img-fluid">
                                     </a>
                                     <div class="topic-box-top-xs">
                                         <div class="topic-box-sm color-cod-gray mb-20">{{ post.category|upper }}</div>
