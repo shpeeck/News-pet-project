@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br>
+
+<!-- Category News Area Start Here -->
+<section class="bg-accent section-space-default">
+    <div class="container">
+        <div class="row">
+            {% for i in data %}
+            <div class="col-md-4 col-sm-12 mb-30">
+                <div class="topic-border color-apple mb-30 width-100">
+                    <div class="topic-box-lg color-cinnabar">{{ i.city }}</div>
+                </div>
+                <div class="img-overlay-70 img-scale-animate">
+                    <div class="mask-content-sm">
+                        <div class="post-date-light">
+                            <ul>
+                                <li>
+                                    <span>
+                                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                                    </span>{{ date }}</li>
+                            </ul>
+                        </div>
+                        <h3 class="title-medium-light">
+                            <p>Температура воздуха</p>
+                            <p><span class="big">{{ i.temperature }}</span> </p>
+                        <!-- </h3> -->
+                    </div>
+                    <img src="{{ i.pictures }}" alt="." class="img-fluid width-100">
+                </div>
+                <ul class="border-bottom-child p-20-r h3-mb-none-child bg-body item-shadow-gray">
+                    <li>
+                        <h3 class="title-medium-dark">
+                            <p>{{ i.all|linebreaksbr }}</p>
+                        </h3>
+                    </li>
+                </ul>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<!-- Category News Area End Here -->
+{% endblock content %}

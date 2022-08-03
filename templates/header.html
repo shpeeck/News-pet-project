@@ -84,8 +84,22 @@
                             </div>
                             <div class="col-lg-8 col-md-8 col-sm-8">
                                 <div class="ne-banner-layout1 pull-right">
-                                    <a href="{% url 'home' %}">
-                                        <img src="{% static 'images/banner2.jpg' %}" alt="ad" class="img-fluid">
+                                    <a href="{% url 'weather' %}">
+                                        <!-- <img src="{% static 'images/banner2.jpg' %}" alt="ad" class="img-fluid"> -->
+                                        <div class="d-flex justify-content-between align-items-center banner-heigth">
+                                            {% for i in data %}
+                                            <div class="d-flex">
+                                                <img src="{{ i.pictures }}" alt="." class="banner-heigth_img"> 
+                                                <div>
+                                                    <h2>{{ i.city }}</h2>
+                                                    <h3 class="active">{{ i.temperature }}</h3>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                            
+                                                <div class="topic-box-lg color-cinnabar">Подробнее</div>
+                                            
+                                        </div>
                                     </a>
                                 </div>
                             </div>
