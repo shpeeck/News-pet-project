@@ -2,7 +2,8 @@ from bs4 import BeautifulSoup
 import requests
 import json
 from datetime import datetime
-from news.models import Heading
+from news.models import Heading, Posts, Like, Comments
+from accounts.models import User
 
 
 def all_cat(request):
@@ -36,3 +37,23 @@ def get_weather(request):
             continue
         date = datetime.now().date()
     return {'data': data, 'date': date}
+
+
+def dashboard(request):
+    ussss = User.objects.all()
+    all_users = ussss.count()
+    all_posts = Posts.objects.all().count()
+    all_likes = Like.objects.all().count()
+    all_comments = Comments.objects.all().count()
+
+    count = 0
+    now_date = datetime.now()
+    now_date = now_date.replace(tzinfo=None)
+    for i in ussss:
+        if i.username:
+            continue
+        i = i.date_joined.replace(tzinfo=None)
+        a = now_date - i
+        if a.days < 7:
+            count+=1
+    return {'dash_users': all_users-1, 'dash_reg': count, 'dash_posts': all_posts, 'dash_likes': all_likes, 'dash_comments': all_comments}

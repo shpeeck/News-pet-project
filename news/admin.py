@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import Posts, Comments, Heading, Like
 
-# Register your models here.
+
 class PostsAdmin(admin.ModelAdmin):
     list_display = ('title', 'get_likes', 'get_comments')
     search_fields = ['title']
@@ -10,9 +10,6 @@ class PostsAdmin(admin.ModelAdmin):
     exclude = ['likes', 'comments_post']
     fields = ('title', 'get_photo', 'body', 'image', 'categories',  'get_likes', 'get_comments')
     readonly_fields = ('get_photo', 'get_likes', 'get_comments')
-    # fieldsets = ('get_photo',)
-    # print(fields)
-    print(admin.ModelAdmin.fieldsets)
 
     def get_likes(self, obj):
         user_likes = Like.objects.filter(post=obj).count()

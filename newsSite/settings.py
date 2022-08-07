@@ -74,6 +74,7 @@ TEMPLATES = [
 
                 'weather.context_processors.get_weather',
                 'weather.context_processors.all_cat',
+                'weather.context_processors.dashboard'
 
             ],
         },
