@@ -57,14 +57,14 @@
                                             {{  user.first_name }} {{  user.last_name }}
                                         </a>
                                         <a class="reg"
-                                            href="{% url 'logout' %}">выход</a>
+                                            href="{% url 'mylogout' %}">выход</a>
                                         {% else %}
                                         Привет {{ request.user.username }}!<a class="reg"
-                                            href="{% url 'logout' %}">выход</a>
+                                            href="{% url 'mylogout' %}">выход</a>
                                         {% endif %}
                                     </li>
                                     {% else %}
-                                    <li><a class="reg" href="{% url 'login' %}">вход</a>|<a class="reg"
+                                    <li><a class="reg" href="{% url 'mylogin' %}">вход</a>|<a class="reg"
                                             href="{% url 'register' %}">регистрация</a></li>
                                     {% endif %}
                                 </ul>

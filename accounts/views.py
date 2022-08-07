@@ -18,6 +18,8 @@ from django.contrib.sites.shortcuts import get_current_site
 # from django.core.mail import send_mail
 from django.contrib.auth.views import LoginView
 
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+
 
 def send_mail_verify(request, user):
     current_site = get_current_site(request)
@@ -94,6 +96,7 @@ class RegisterFormView(View):
 
 class MyLoginView(LoginView):
     form_class = AuthenticationForm
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
 
     def form_valid(self, form):
         self.user = form.get_user()
@@ -133,3 +136,5 @@ def user_update(request):
         default_data = {'first_name': user.first_name, 'last_name': user.last_name}
         form = ProfileForm(default_data)
     return render(request, 'registration/update.html', {'form': form, 'user': user})
+
+

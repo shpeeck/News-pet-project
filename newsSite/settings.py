@@ -41,6 +41,11 @@ INSTALLED_APPS = [
     'news',
     'accounts',
     'weather',
+    'siteApi',
+    'rest_framework',
+    'django_filters',
+    'rest_framework.authtoken',
+    'djoser',
 ]
 
 MIDDLEWARE = [
@@ -68,6 +73,8 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
 
                 'weather.context_processors.get_weather',
+                'weather.context_processors.all_cat',
+
             ],
         },
     },
@@ -146,3 +153,24 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'admin@gmail.com'
 EMAIL_HOST_PASSWORD = 'your_pass'
 EMAIL_PORT = 587
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 3,
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        # 'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
+
+DJOSER = {
+    # 'HIDE_USERS': False,
+    'LOGIN_FIELD': 'email',
+    # 'PERMISSIONS': {
+    #     'user_list': [
+    #         'rest_framework.permissions.AllowAny'
+    #     ],
+    # },
+}

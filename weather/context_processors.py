@@ -2,6 +2,12 @@ from bs4 import BeautifulSoup
 import requests
 import json
 from datetime import datetime
+from news.models import Heading
+
+
+def all_cat(request):
+    all_categories = Heading.objects.all()
+    return { 'cat': all_categories}
 
 
 def get_weather(request):

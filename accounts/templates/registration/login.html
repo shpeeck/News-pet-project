@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container">
     <div class="col-lg-12 text-center">
-        <form action="{% url 'login' %}" method="POST" class="reg_form">
+        <form action="{% url 'mylogin' %}" method="POST" class="reg_form">
             <h1 class="text-center">Вход</h1>
             {% if form.errors %}
             <p>{{ form.errors.error }}</p>

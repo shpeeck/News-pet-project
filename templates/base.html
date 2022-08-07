@@ -232,21 +232,11 @@
                                     <a href="{% url 'home' %}">Главная</a>
 
                                 </li>
+                                {% for i in cat %}
                                 <li>
-                                    <a href="{% url 'politic' %}">Политика</a>
+                                    <a href="{% url 'new_base' i.pk %}">{{ i }}</a>
                                 </li>
-                                <li>
-                                    <a href="{% url 'busines' %}">Бизнес</a>
-                                </li>
-                                <li>
-                                    <a href="{% url 'sport' %}">Спорт</a>
-                                </li>
-                                <li>
-                                    <a href="{% url 'fashion' %}">Мода</a>
-                                </li>
-                                <li>
-                                    <a href="{% url 'travel' %}">Путешествия</a>
-                                </li>
+                                {% endfor %}
                             </ul>
                         </nav>
                     </div>

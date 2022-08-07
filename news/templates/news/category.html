@@ -22,16 +22,16 @@
 
                     </div>
                     {% if posts %}
-                    {% for post in posts %}
+                    {% for one_post in posts %}
                     <div class="row">
                         <div class="col-md-12 col-sm-6 col-12 mb-30">
                             <div class="media item-shadow-gray bg-body media-none--sm">
                                 <div class="position-relative width-36 width43-lg">
-                                    <a href="{% url 'post' post.id %}" class="img-opacity-hover img-overlay-70">
-                                        <img src="../../{{ post.image }}" alt="{{ post.alt_image }}" class="img-fluid">
+                                    <a href="{% url 'one_post' one_post.id %}" class="img-opacity-hover img-overlay-70">
+                                        <img src="../../{{ one_post.image }}" alt="{{ one_post.alt_image }}" class="img-fluid">
                                     </a>
                                     <div class="topic-box-top-xs">
-                                        <div class="topic-box-sm color-cod-gray mb-20">{{ post.category|upper }}</div>
+                                        <div class="topic-box-sm color-cod-gray mb-20">{{ one_post.categories|upper }}</div>
                                     </div>
                                 </div>
                                 <div class="media-body media-padding30 p-mb-none-child">
@@ -56,9 +56,9 @@
                                         </ul>
                                     </div> -->
                                     <h3 class="title-semibold-dark size-lg mb-15">
-                                        <a href="{% url 'post' post.id %}">{{ post.title }}</a>
+                                        <a href="{% url 'one_post' one_post.id %}">{{ one_post.title }}</a>
                                     </h3>
-                                    <p>{{ post.body|truncatechars:250 }}
+                                    <p>{{ one_post.body|truncatechars:250 }}
                                     </p>
                                 </div>
                             </div>
