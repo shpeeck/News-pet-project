@@ -25,14 +25,14 @@ class Posts(models.Model):
 
 
     def __str__(self):
-        return f"{self.pk} {self.title} {self.image} {self.likes}"
+        return f"{self.title}"
 
     def total_likes(self):
         return self.likes.count()
 
     class Meta():
-        verbose_name =  'Post'
-        verbose_name_plural = 'Posts'
+        verbose_name =  'Новость'
+        verbose_name_plural = 'Новости'
 
 
 class Comments(models.Model):
@@ -46,8 +46,8 @@ class Comments(models.Model):
             return 'Comment by {} on {}'.format(self.author, self.body)
 
     class Meta():
-        verbose_name =  'Comment'
-        verbose_name_plural = 'Comments'
+        verbose_name =  'Коментарий'
+        verbose_name_plural = 'Коментарии'
 
 class Like(models.Model):
     post = models.ForeignKey(Posts, on_delete=models.CASCADE)
@@ -60,3 +60,7 @@ class Heading(models.Model):
 
     def __str__(self):
             return self.category_names
+
+    class Meta():
+        verbose_name =  'Рубрика'
+        verbose_name_plural = 'Рубрики'
