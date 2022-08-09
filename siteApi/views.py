@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from news.models import Posts, Like, Comments, Heading
 from accounts.models import User
-from .serializers import PostsSerializer, LikesSerializer, CommentsSerializer, PostSerializer, ProfileSerializer, CatSerializer
+from .serializers import PostsSerializer, LikesSerializer, CommentsSerializer, PostSerializer, ProfileSerializer, CatSerializer, TopSerializer, GetProfileSerializer, FoolPostSerializer
 from rest_framework.views import APIView
 from rest_framework.pagination import LimitOffsetPagination
 from django_filters.rest_framework import DjangoFilterBackend
@@ -12,7 +12,7 @@ from rest_framework import filters
 from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, UpdateModelMixin
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_201_CREATED
+from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_201_CREATED, HTTP_200_OK
 
 from datetime import datetime
 
@@ -25,6 +25,26 @@ class PostsApiView(ModelViewSet, LimitOffsetPagination):
     serializer_class = PostsSerializer
     # permission_classes = (IsAuthenticated,)
     http_method_names = ['get', 'head']
+
+
+# @api_view(http_method_names=['GET'])
+# def post(request, post_id):
+#     all_likes = Like.objects.filter(post=post_id).count()
+#     post = Posts.objects.get(id=post_id)
+#     all_comments = Comments.objects.filter(post=post_id).count()
+#     comments = []
+#     for i in Comments.objects.filter(post=post_id):
+#         comment = {
+#             'author': i.author.first_name, 
+#             'body': i.body,
+#             'created': i.created 
+#         }
+#         comments.append(comment)
+#     data = {'title': post.title, 'body': post.body, 'image': post.image}
+#     serializer = PostSerializer(data=data)
+#     serializer.is_valid(raise_exception=True)
+#     new_data = {**serializer.data, 'likes': all_likes, 'comments': comments, 'all_comments': all_comments}
+#     return Response(new_data, status=HTTP_200_OK)
 
 
 @api_view(http_method_names=['GET'])
@@ -44,7 +64,9 @@ def post(request, post_id):
     serializer = PostSerializer(data=data)
     serializer.is_valid(raise_exception=True)
     new_data = {**serializer.data, 'likes': all_likes, 'comments': comments, 'all_comments': all_comments}
-    return Response({'data': new_data})
+    serializer = FoolPostSerializer(data=new_data)
+    serializer.is_valid(raise_exception=True)
+    return Response(serializer.data, status=HTTP_200_OK)
 
 
 @api_view(http_method_names=['GET'])
@@ -55,7 +77,9 @@ def get_user(request):
         'last_name': request.user.last_name,
         'email': request.user.email
         }
-    return Response(return_dict)
+    serializer = GetProfileSerializer(data=return_dict)
+    serializer.is_valid(raise_exception=True)
+    return Response(serializer.data, status=HTTP_200_OK)
 
 
 @api_view(['PUT'])
@@ -73,7 +97,7 @@ def put_user(request):
     serializer = ProfileSerializer(data=request.data, instance=instance)
     serializer.is_valid(raise_exception=True)
     serializer.save()
-    return Response(data=serializer.data, status=HTTP_201_CREATED)
+    return Response(data=serializer.data, status=HTTP_200_OK)
 
 
 @api_view(['PATCH'])
@@ -110,18 +134,18 @@ def like(request, post_id):
                 # data = {'post': post_id, 'author': user, 'like': True}
                 # serializer = LikesSerializer(data=data)
                 likes = Like.objects.create(post = post, author = request.user, like = True)
-                data = {'title': post.title, 'body': post.body, 'likes': likes}
-                serializer = PostSerializer(data=data)
-                serializer.is_valid(raise_exception=True)
+                # data = {'title': post.title, 'body': post.body, 'likes': likes}
+                # serializer = PostSerializer(data=data)
+                # serializer.is_valid(raise_exception=True)
                 # serializer.save()
                 return Response(data="like add", status=HTTP_201_CREATED)
     else:
         # data = {'post': post_id, 'author': user, 'like': True}
         # serializer = LikesSerializer(data=data)
         likes = Like.objects.create(post = post, author = request.user, like = True)
-        data = {'title': post.title, 'body': post.body, 'like': likes}
-        serializer = PostSerializer(data=data)
-        serializer.is_valid(raise_exception=True)
+        # data = {'title': post.title, 'body': post.body, 'like': likes}
+        # serializer = PostSerializer(data=data)
+        # serializer.is_valid(raise_exception=True)
         # serializer.save()
         return Response(data="like add", status=HTTP_201_CREATED)
     return Response(data="Delete", status=HTTP_201_CREATED)
@@ -152,3 +176,28 @@ class CatApiView(ModelViewSet):
     serializer_class = CatSerializer
     http_method_names = ['get', 'head']
     pagination_class = None
+
+
+@api_view(['GET'])
+def top_news(request):
+    now_date = datetime.now()
+    now_date = now_date.replace(tzinfo=None)
+    posts = Posts.objects.all()
+    top = []
+    for i in posts:
+        date = i.created.replace(tzinfo=None)
+        a = now_date - date
+        like = Like.objects.filter(post=i.id).count()
+        comments = Comments.objects.filter(post=i.id).count()
+        if like > 10 and comments > 10 and a.days <= 3 :
+            post = {
+                'id': i.id,
+                'title': i.title,
+                'body': i.body,
+                'like': like,
+                'comments': comments
+            }
+            serializer = TopSerializer(data=post)
+            serializer.is_valid(raise_exception=True)
+            top.append(serializer.data)
+    return Response(status=HTTP_200_OK, data=top)

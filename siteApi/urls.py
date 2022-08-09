@@ -10,14 +10,16 @@ urlpatterns=[
     path(r'like/<int:post_id>/', views.like, name='like'),
     path(r'post/<int:post_id>/', views.post, name='post'),
     path(r'post_comment/<int:post_id>/', views.post_comment, name='post_comment'),
-
+    path(r'top-news/', views.top_news, name='top_news'),
+    path(r'all-news/', views.PostsApiView.as_view({'get': 'list'}), name='all_news'),
+    path(r'categories/', views.CatApiView.as_view({'get': 'list'}), name='cat'),
 
 ] 
 
 
 router = routers.SimpleRouter()
-router.register(r'all-news', views.PostsApiView, basename='all_news')
-router.register(r'categories', views.CatApiView, basename='cat')
+# router.register(r'all-news', views.PostsApiView, basename='all_news')
+# router.register(r'categories', views.CatApiView, basename='cat')
 
 # router.register(r'post', views.PostApiViewSet, basename='post')
 # router.register(r'get/profile', views.Profile, basename='profile')

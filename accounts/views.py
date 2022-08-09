@@ -101,8 +101,11 @@ class MyLoginView(LoginView):
     def form_valid(self, form):
         self.user = form.get_user()
         if self.user.email_verify == True:
-            login(self.request, self.user)
-            return super().form_valid(form)
+            if self.user.user_active:
+                login(self.request, self.user)
+                return super().form_valid(form)
+            else:
+                return redirect('blocked')
         else:
             send_mail_verify(self.request, self.user)
             return redirect('confirm')

@@ -16,7 +16,10 @@ class UserAdmin(UserAdmin):
     fieldsets = (
         ('Информация о пользователе', {'fields': ('first_name', 'last_name', 'get_likes')}),
         ('Коментарии', {
-            'fields': ('get_comments',)}),)
+            'fields': ('get_comments',)}),
+        ('Заблокировать пользователя', {
+            'fields': ('user_active',)}),
+            )
     readonly_fields = ('first_name', 'last_name', 'get_likes', 'get_comments',)
         
     def get_likes(self, obj):

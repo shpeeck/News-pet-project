@@ -8,6 +8,17 @@ class PostsSerializer(serializers.Serializer):
     created = serializers.DateTimeField()
 
 
+class GetProfileSerializer(serializers.Serializer):
+    first_name = serializers.CharField(max_length=150)
+    last_name = serializers.CharField(max_length=150)
+    email = serializers.CharField(max_length=150)
+
+    class Meta:
+        model = Like
+        fields = ['first_name', 'last_name', 'email']
+
+
+
 class LikesSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
@@ -46,11 +57,19 @@ class PostSerializer(serializers.ModelSerializer):
 
         # instance.save()
         # return instance
+
     
     class Meta:
         model = Posts
         fields = ['title', 'body', 'image', 'comments_post', 'likes']
 
+
+class FoolPostSerializer(serializers.Serializer):
+    title = serializers.CharField(max_length=150)
+    body = serializers.CharField()
+    image = serializers.CharField()
+    comments = serializers.ListField()
+    likes = serializers.IntegerField()
     
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -69,3 +88,19 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 class CatSerializer(serializers.Serializer):
     category_names = serializers.CharField(max_length=150)
+
+
+class TopSerializer(serializers.Serializer):
+    title = serializers.CharField(max_length=150)
+    body = serializers.CharField()
+    like = serializers.IntegerField()
+    comments = serializers.IntegerField()
+
+    # def validate(self, data):
+    #     if data['like']<2 and data['comments']<1:
+    #         raise serializers.ValidationError(" sdfsdfsds")
+    #     return data
+        
+    class Meta:
+        model = Posts
+        fields = ['title', 'body', 'like', 'comments']
