@@ -185,67 +185,25 @@ class TopNewsTests(APITestCase):
         cat = Heading.objects.create(category_names='Cat')
         number_of_posts = 13
         for post_num in range(number_of_posts):
-            Posts.objects.create(title='Test %s' % post_num, body = 'Test %s' % post_num, categories=cat, image=None, alt_image='test')
+            Posts.objects.create(title='Test %s' % post_num, body = 'Test %s' % post_num, categories=cat, alt_image='test')
         
 
     def test_like_create(self):
-        # number_of_users = 10
-        user = User.objects.create(first_name='John1', last_name='Doe1', email='test1@gmail.com', password='qw12we23er341')
-        token = Token.objects.get_or_create(user=user) 
-        token = str(token[0])
-        self.client = Client(HTTP_AUTHORIZATION='Token ' + token)
-        response = self.client.put('http://127.0.0.1:8000/api/like/1/')
-        self.assertEqual(response.status_code, 201)
-        post = Posts.objects.get(pk=1)
-        data = {'post': post, 'author': self.client, 'body': 'its a new comment'}
-        response = self.client.post('http://127.0.0.1:8000/api/post_comment/1/', data, format='json')
-        self.assertEqual(response.status_code, 201)
+        number_of_users = 11
+        for user_num in range(number_of_users):
+            user = User.objects.create(first_name=f'John{user_num}', last_name='Doe{user_num}', email=f'test{user_num}@gmail.com', password='qw12we23er34{user_num}')
+            token = Token.objects.get_or_create(user=user) 
+            token = str(token[0])
+            self.client = Client(HTTP_AUTHORIZATION='Token ' + token)
+            response = self.client.put('http://127.0.0.1:8000/api/like/1/')
+            self.assertEqual(response.status_code, 201)
+            post = Posts.objects.get(pk=1)
+            data = {'post': post, 'author': self.client, 'body': 'its a new comment'}
+            response = self.client.post('http://127.0.0.1:8000/api/post_comment/1/', data, format='json')
+            self.assertEqual(response.status_code, 201)
+        self.assertEqual(Like.objects.filter(post=1).count(), 11)
+        self.assertEqual(Comments.objects.filter(post=1).count(), 11)
+        response = self.client.get(reverse('top_news'))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.data), 1)
 
-        user1 = User.objects.create(first_name='John2', last_name='Doe2', email='test2@gmail.com', password='qw12we23er342')
-        token = Token.objects.get_or_create(user=user1) 
-        token = str(token[0])
-        self.client = Client(HTTP_AUTHORIZATION='Token ' + token)
-        response = self.client.put('http://127.0.0.1:8000/api/like/1/')
-        self.assertEqual(response.status_code, 201)
-        post = Posts.objects.get(pk=1)
-        data = {'post': post, 'author': self.client, 'body': 'its a new comment'}
-        response = self.client.post('http://127.0.0.1:8000/api/post_comment/1/', data, format='json')
-        self.assertEqual(response.status_code, 201)
-
-        user2 = User.objects.create(first_name='John3', last_name='Doe3', email='test3@gmail.com', password='qw12we23er343')
-        token = Token.objects.get_or_create(user=user2) 
-        token = str(token[0])
-        self.client = Client(HTTP_AUTHORIZATION='Token ' + token)
-        response = self.client.put('http://127.0.0.1:8000/api/like/1/')
-        self.assertEqual(response.status_code, 201)
-        post = Posts.objects.get(pk=1)
-        data = {'post': post, 'author': self.client, 'body': 'its a new comment'}
-        response = self.client.post('http://127.0.0.1:8000/api/post_comment/1/', data, format='json')
-        self.assertEqual(response.status_code, 201)
-        # for user_num in range(number_of_users):
-        #     user = User.objects.create(first_name=f'John{user_num}', last_name='Doe{user_num}', email=f'test{user_num}@gmail.com', password='qw12we23er34{user_num}')
-        #     print('user',user)
-        #     token = Token.objects.get_or_create(user=user) 
-        #     token = str(token[0])
-        #     self.client = Client(HTTP_AUTHORIZATION='Token ' + token)
-            # response = self.client.put('http://127.0.0.1:8000/api/like/1/')
-            # self.assertEqual(response.status_code, 201)
-            # post = Posts.objects.get(pk=1)
-            # data = {'post': post, 'author': self.client, 'body': 'its a new comment'}
-            # response = self.client.post('http://127.0.0.1:8000/api/post_comment/1/', data, format='json')
-            # self.assertEqual(response.status_code, 201)
-
-            
-        # http://127.0.0.1:8000/api/top-news/
-
-        # token = Token.objects.get_or_create(user=self.user) 
-        # token = str(token[0])
-        # self.client = Client(HTTP_AUTHORIZATION='Token ' + token)
-        # post = Posts.objects.get(pk=1)
-        # data = {'post': post, 'author': self.client, 'body': 'its a new comment'}
-        # response = self.client.post('http://127.0.0.1:8000/api/post_comment/1/', data, format='json')
-        # self.assertEqual(response.status_code, 201)
-        # self.assertEqual(Comments.objects.filter(post=1).count(), 1)
-        # response = self.client.post('http://127.0.0.1:8000/api/post_comment/1/', data, format='json')
-        # self.assertEqual(Comments.objects.filter(post=1).count(), 2)
-    
