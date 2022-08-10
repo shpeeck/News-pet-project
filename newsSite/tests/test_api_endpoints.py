@@ -16,31 +16,27 @@ class  HeadingTests(APITestCase):
 
     @classmethod
     def setUpTestData(cls):
-        number_of_posts = 1
+        number_of_posts = 5
         for post_num in range(number_of_posts):
-            Heading.objects.create(category_names='Cat')
+            Heading.objects.create(category_names=f'Cat{post_num}')
 
-
-    def test_positive(self):
-        # response = self.client.get(reverse('cat'))
+    def test_get_categories(self):
         response = self.client.get('http://127.0.0.1:8000/api/categories/')
-
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(Heading.objects.count(), 1)
-        self.assertEqual(Heading.objects.get().category_names, 'Cat')
-        self.assertEqual(len(response.data), 1)
+        self.assertEqual(Heading.objects.count(), 5)
+        self.assertEqual(Heading.objects.get(pk=1).category_names, 'Cat0')
+        self.assertEqual(len(response.data), 5)
 
+    def test_search_category(self):
         response = self.client.get('http://127.0.0.1:8000/api/categories/?search=Cat')
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(Heading.objects.count(), 1)
-        self.assertEqual(len(response.data), 1)
-        self.assertEqual(response.data, [{"category_names": "Cat"}])
+        self.assertEqual(Heading.objects.count(), 5)
+        self.assertEqual(len(response.data), 5)
 
         response = self.client.get('http://127.0.0.1:8000/api/categories/?search=cat')
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(Heading.objects.count(), 1)
-        self.assertEqual(len(response.data), 1)
-        self.assertEqual(response.data, [{"category_names": "Cat"}])
+        self.assertEqual(Heading.objects.count(), 5)
+        self.assertEqual(len(response.data), 5)
 
 
 class  UserTests(APITestCase):
@@ -48,7 +44,6 @@ class  UserTests(APITestCase):
     @classmethod
     def setUp(self):
         self.user = User.objects.create(first_name='John', last_name='Doe', email='test@gmail.com', password='qw12we23er34')
-
 
     def test_is_user_create(self):
         self.assertEqual(User.objects.get(pk=1).email, 'test@gmail.com')

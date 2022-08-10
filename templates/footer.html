@@ -192,21 +192,42 @@
                 </div>
             </div>
         </div>
+        
         <div class="footer-area-bottom">
             <div class="container">
                 <div class="row">
                     <div class="col-12 text-center">
+                        <ul class="news-info-list text-center--md">
+                            {% if user.is_authenticated %}
+                            <li>
+                                {% if user.first_name or user.last_name %}
+                                <a class="reg" href="{% url 'user' %}">
+                                    {{  user.first_name }} {{  user.last_name }}
+                                </a>
+                                <a class="reg"
+                                    href="{% url 'mylogout' %}">выход</a>
+                                {% else %}
+                                Привет {{ request.user.username }}!<a class="reg"
+                                    href="{% url 'mylogout' %}">выход</a>
+                                {% endif %}
+                            </li>
+                            {% else %}
+                            <li><a class="reg" href="{% url 'mylogin' %}">вход</a>|<a class="reg"
+                                    href="{% url 'register' %}">регистрация</a></li>
+                            {% endif %}
+                        </ul>
+                        <br>
                         <a href="#" class="footer-logo img-fluid">
                             <img src="{% static 'images/logo.png' %}" alt="logo" class="img-fluid">
                         </a>
                         <ul class="footer-social">
                             <li>
-                                <a href="#" title="facebook">
+                                <a href="https://www.facebook.com/yevgeny.vasilev/" title="facebook">
                                     <i class="fa fa-facebook" aria-hidden="true"></i>
                                 </a>
                             </li>
                             <li>
-                                <a href="#" title="twitter">
+                                <a href="https://twitter.com/Shpeeck" title="twitter">
                                     <i class="fa fa-twitter" aria-hidden="true"></i>
                                 </a>
                             </li>
@@ -216,12 +237,12 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#" title="linkedin">
+                                <a href="https://www.linkedin.com/in/vasyliev-yevhen/" title="linkedin">
                                     <i class="fa fa-linkedin" aria-hidden="true"></i>
                                 </a>
                             </li>
                             <li>
-                                <a href="#" title="pinterest">
+                                <a href="https://ru.pinterest.com/jenya_vas/" title="pinterest">
                                     <i class="fa fa-pinterest" aria-hidden="true"></i>
                                 </a>
                             </li>
@@ -237,6 +258,7 @@
                             </li>
                         </ul>
                         <p>© 2017 newsedge Designed by RadiusTheme. All Rights Reserved</p>
+                        <p>© 2022 backend by <a href="https://www.linkedin.com/in/vasyliev-yevhen/">Shpeeck</a></p>
                     </div>
                 </div>
             </div>
