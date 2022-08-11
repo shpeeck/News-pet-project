@@ -4,7 +4,6 @@ from django.contrib.auth.admin import UserAdmin
 from news.views import Like, Comments, Posts
 
 
-# Register your models here.
 User = get_user_model()
 
 

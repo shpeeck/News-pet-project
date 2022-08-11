@@ -6,7 +6,6 @@ class PostsAdmin(admin.ModelAdmin):
     list_display = ('title', 'get_likes', 'get_comments')
     search_fields = ['title']
     list_filter = ['categories']
-    # list_editable = ('title', 'released_year')
     exclude = ['likes', 'comments_post']
     fields = ('title', 'get_photo', 'body', 'image', 'categories',  'get_likes', 'get_comments')
     readonly_fields = ('get_photo', 'get_likes', 'get_comments')

@@ -167,17 +167,7 @@ REST_FRAMEWORK = {
 }
 
 DJOSER = {
-    # 'HIDE_USERS': False,
     'LOGIN_FIELD': 'email',
-    # 'PERMISSIONS': {
-    #     'user_list': [
-    #         'rest_framework.permissions.AllowAny'
-    #     ],
-    # },
+
 }
 
-# ACCOUNT_USER_MODEL_USERNAME_FIELD = None
-# ACCOUNT_USERNAME_REQUIRED = False
-# ACCOUNT_USER_MODEL_EMAIL_FIELD = "email"
-# ACCOUNT_UNIQUE_EMAIL = True
-# ACCOUNT_AUTHENTICATION_METHOD = "email"

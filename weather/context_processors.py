@@ -17,7 +17,6 @@ def get_weather(request):
     data = []
 
     for key, value in url.items():
-        #print(key)
         dic = {}
         page = requests.get(value)
         if page.status_code==200:

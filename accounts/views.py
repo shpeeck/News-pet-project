@@ -8,14 +8,12 @@ from django.views.generic import FormView
 from django.shortcuts import render
 from .forms import RegistrForm, UserCreation, ProfileForm
 
-# email
 from django.core.mail import EmailMessage
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import default_token_generator as token_generator
 from django.template.loader import render_to_string
 from django.contrib.sites.shortcuts import get_current_site
-# from django.core.mail import send_mail
 from django.contrib.auth.views import LoginView
 
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
@@ -71,7 +69,6 @@ class RegisterFormView(View):
     def post(self, request):
         form = UserCreation(request.POST)
         if form.is_valid():
-            # username = form.cleaned_data.get('username')
             form.save()
             email = form.cleaned_data.get('email')
             password = form.cleaned_data.get('password1')
@@ -83,16 +80,6 @@ class RegisterFormView(View):
         }
         return render(request, self.template_name, context)
 
-
-# class LoginFormView(FormView):
-#     form_class = AuthenticationForm
-#     success_url = reverse_lazy('home')
-#     template_name = "registration/login.html"
-
-#     def form_valid(self, form):
-#         self.user = form.get_user()
-#         login(self.request, self.user)
-#         return super().form_valid(form)
 
 class MyLoginView(LoginView):
     form_class = AuthenticationForm
@@ -119,7 +106,6 @@ class LogoutView(View):
 
 def user(request):
     try:
-        # user = User.objects.get(pk=request.user.id)
         user = request.user
         return render(request, 'registration/user.html', context={'user': user})
     except: 
@@ -134,7 +120,6 @@ def user_update(request):
             user.first_name = form.cleaned_data['first_name'] 
             user.last_name = form.cleaned_data['last_name']
             user.save()
-            # return redirect(reverse('update'))
     else:
         default_data = {'first_name': user.first_name, 'last_name': user.last_name}
         form = ProfileForm(default_data)
