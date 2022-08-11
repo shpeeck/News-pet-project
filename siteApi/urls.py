@@ -18,19 +18,6 @@ urlpatterns=[
 
 
 router = routers.SimpleRouter()
-# router.register(r'all-news', views.PostsApiView, basename='all_news')
-# router.register(r'categories', views.CatApiView, basename='cat')
-
-# router.register(r'post', views.PostApiViewSet, basename='post')
-# router.register(r'get/profile', views.Profile, basename='profile')
-# not working
-# router.register(r'put/profile', views.PutProfile, basename='put_profile')
-# router.register(r'patch/profile', views.PatchProfile, basename='patch_profile')
-
-# router.register(r'token', include('rest_framework.urls'), basename='df')
-# router.register(r'today', views.today, basename='today')
-
-
 
 
 urlpatterns += router.urls

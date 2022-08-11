@@ -42,6 +42,5 @@ class HeadingAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Posts, PostsAdmin)
-# admin.site.register(Comments, CommentsAdmin)
 admin.site.register(Heading, HeadingAdmin)
 

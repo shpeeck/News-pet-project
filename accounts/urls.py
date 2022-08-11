@@ -3,7 +3,6 @@ from . import views
 from django.views.generic import TemplateView
 
 urlpatterns = [
-    path('login/', views.MyLoginView.as_view(), name='login'),
     path('register/', views.RegisterFormView.as_view(), name='register'),
     path('login/', views.MyLoginView.as_view(), name='mylogin'),
     path('logout/', views.LogoutView.as_view(), name='mylogout'),

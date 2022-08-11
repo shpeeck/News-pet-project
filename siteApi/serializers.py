@@ -18,7 +18,6 @@ class GetProfileSerializer(serializers.Serializer):
         fields = ['first_name', 'last_name', 'email']
 
 
-
 class LikesSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
@@ -42,22 +41,6 @@ class CommentsSerializer(serializers.ModelSerializer):
 
 
 class PostSerializer(serializers.ModelSerializer):
-    # comments_post = CommentsSerializer(many=True, read_only=True)
-    # likes = LikesSerializer(many=True, read_only=True)
-
-    # def update(self, instance, validated_data):
-    #     instance.title = validated_data.get('title', instance.title)
-    #     instance.body = validated_data.get('body', instance.body)
-    #     instance.image = validated_data.get('image', instance.image)
-    #     instance.alt_image = validated_data.get('alt_image', instance.alt_image)
-    #     instance.likes = validated_data.get('likes', instance.likes)
-    #     instance.comments_post = validated_data.get('comments_post', instance.comments_post)
-
-        # instance.email = validated_data.get('email', instance.email)
-
-        # instance.save()
-        # return instance
-
     
     class Meta:
         model = Posts
@@ -77,7 +60,6 @@ class ProfileSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         instance.first_name = validated_data.get('first_name', instance.first_name)
         instance.last_name = validated_data.get('last_name', instance.last_name)
-        # instance.email = validated_data.get('email', instance.email)
         instance.save()
         return instance
 
@@ -96,11 +78,7 @@ class TopSerializer(serializers.Serializer):
     like = serializers.IntegerField()
     comments = serializers.IntegerField()
 
-    # def validate(self, data):
-    #     if data['like']<2 and data['comments']<1:
-    #         raise serializers.ValidationError(" sdfsdfsds")
-    #     return data
-        
+
     class Meta:
         model = Posts
         fields = ['title', 'body', 'like', 'comments']

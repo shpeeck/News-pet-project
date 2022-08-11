@@ -34,7 +34,13 @@ def one_post(request, post_id):
         like = Like.objects.filter(post=post_id).count()
         comments = Comments.objects.filter(post=post_id)
         all_comments = comments.count()
-        return render(request, 'news/post.html',context={'one_post': one_post, 'like': like, 'comments': comments, 'all_comments': all_comments})
+        context={
+            'one_post': one_post, 
+            'like': like, 
+            'comments': comments, 
+            'all_comments': all_comments
+            }
+        return render(request, 'news/post.html', context=context)
 
     except Posts.DoesNotExist: 
         raise Http404(f"Not found post_id {post_id}")

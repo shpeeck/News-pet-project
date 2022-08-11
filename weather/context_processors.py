@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 import json
 from datetime import datetime
+import dateutil.relativedelta as relativedelta
 from news.models import Heading, Posts, Like, Comments
 from accounts.models import User
 
@@ -12,7 +13,11 @@ def all_cat(request):
 
 
 def get_weather(request):
-    url = {'Киев': 'https://pogoda.co.il/ukraine/kiev', 'Лондон': 'https://pogoda.co.il/united_kingdom/london', 'Барселона': 'https://pogoda.co.il/spain/barcelona'}
+    url = {
+        'Киев': 'https://pogoda.co.il/ukraine/kiev', 
+        'Лондон': 'https://pogoda.co.il/united_kingdom/london', 
+        'Барселона': 'https://pogoda.co.il/spain/barcelona'
+        }
 
     data = []
 
@@ -39,20 +44,10 @@ def get_weather(request):
 
 
 def dashboard(request):
-    ussss = User.objects.all()
-    all_users = ussss.count()
-    all_posts = Posts.objects.all().count()
-    all_likes = Like.objects.all().count()
-    all_comments = Comments.objects.all().count()
-
-    count = 0
-    now_date = datetime.now()
-    now_date = now_date.replace(tzinfo=None)
-    for i in ussss:
-        if i.username:
-            continue
-        i = i.date_joined.replace(tzinfo=None)
-        a = now_date - i
-        if a.days < 7:
-            count+=1
-    return {'dash_users': all_users-1, 'dash_reg': count, 'dash_posts': all_posts, 'dash_likes': all_likes, 'dash_comments': all_comments}
+    all_users = User.objects.count()
+    all_posts = Posts.objects.count()
+    all_likes = Like.objects.count()
+    all_comments = Comments.objects.count()
+    week_ago = datetime.now().today() - relativedelta.relativedelta(days=7)
+    count_reg_users_week = User.objects.filter(date_joined__gte=week_ago).count()
+    return {'dash_users': all_users, 'dash_reg': count_reg_users_week, 'dash_posts': all_posts, 'dash_likes': all_likes, 'dash_comments': all_comments}

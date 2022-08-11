@@ -22,7 +22,6 @@ urlpatterns = [
     path('', include('news.urls')),
     path('account/', include('accounts.urls')),
     path('weather/', include('weather.urls')),
-    # path('api/', include(my_api_rout.urls)),
     path('api/', include('siteApi.urls')),
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.authtoken')),

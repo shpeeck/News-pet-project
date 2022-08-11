@@ -23,28 +23,7 @@ class PostsApiView(ModelViewSet, LimitOffsetPagination):
     filterset_fields = ['categories']
     search_fields = ['title']
     serializer_class = PostsSerializer
-    # permission_classes = (IsAuthenticated,)
     http_method_names = ['get', 'head']
-
-
-# @api_view(http_method_names=['GET'])
-# def post(request, post_id):
-#     all_likes = Like.objects.filter(post=post_id).count()
-#     post = Posts.objects.get(id=post_id)
-#     all_comments = Comments.objects.filter(post=post_id).count()
-#     comments = []
-#     for i in Comments.objects.filter(post=post_id):
-#         comment = {
-#             'author': i.author.first_name, 
-#             'body': i.body,
-#             'created': i.created 
-#         }
-#         comments.append(comment)
-#     data = {'title': post.title, 'body': post.body, 'image': post.image}
-#     serializer = PostSerializer(data=data)
-#     serializer.is_valid(raise_exception=True)
-#     new_data = {**serializer.data, 'likes': all_likes, 'comments': comments, 'all_comments': all_comments}
-#     return Response(new_data, status=HTTP_200_OK)
 
 
 @api_view(http_method_names=['GET'])
@@ -126,27 +105,14 @@ def like(request, post_id):
     user = request.user.id
     if len(like)>0:
         for i in like:
-            print('i', i.author.id)
             if i.author.id==user:
                 like = Like.objects.filter(author=user)
                 like.delete()
             else:
-                # data = {'post': post_id, 'author': user, 'like': True}
-                # serializer = LikesSerializer(data=data)
                 likes = Like.objects.create(post = post, author = request.user, like = True)
-                # data = {'title': post.title, 'body': post.body, 'likes': likes}
-                # serializer = PostSerializer(data=data)
-                # serializer.is_valid(raise_exception=True)
-                # serializer.save()
                 return Response(data="like add", status=HTTP_201_CREATED)
     else:
-        # data = {'post': post_id, 'author': user, 'like': True}
-        # serializer = LikesSerializer(data=data)
         likes = Like.objects.create(post = post, author = request.user, like = True)
-        # data = {'title': post.title, 'body': post.body, 'like': likes}
-        # serializer = PostSerializer(data=data)
-        # serializer.is_valid(raise_exception=True)
-        # serializer.save()
         return Response(data="like add", status=HTTP_201_CREATED)
     return Response(data="Delete", status=HTTP_201_CREATED)
 
@@ -161,12 +127,6 @@ def post_comment(request, post_id):
     serializer.is_valid(raise_exception=True)
     serializer.save()
     return Response(status=HTTP_201_CREATED, data=serializer.data)
-
-
-# @api_view(['GET'])
-# def all_cat(request):
-#     heading = Heading.objects.all()
-#     return Response({'cat': heading})
 
 
 class CatApiView(ModelViewSet):

@@ -8,16 +8,6 @@ class Posts(models.Model):
     title = models.CharField(max_length=150)
     body = models.TextField()
     categories = models.ForeignKey('Heading', on_delete=models.CASCADE, related_name='category', blank=True)
-    # category = models.CharField(
-    #     choices=(
-    #         ('политика', 'политика'), 
-    #         ('бизнес', 'бизнес'), 
-    #         ('спорт', 'спорт'),
-    #         ('мода', 'мода'),
-    #         ('путешествия', 'путешествия')
-    #     ), 
-    #     max_length=20, 
-    #     default='политика')
     image = models.ImageField(upload_to='static/images/', default='static/images/none.jpg', blank=True, null=True)
     alt_image = models.CharField(max_length=50)
     likes = models.ForeignKey('Like', null=True, on_delete=models.CASCADE, related_name='likes', blank=True)

@@ -53,7 +53,6 @@ class EmailVerify(View):
             user = User.objects.get(pk=uid)
         except:
             user = None
-            print('no user')
         return user
 
 
@@ -87,7 +86,7 @@ class MyLoginView(LoginView):
 
     def form_valid(self, form):
         self.user = form.get_user()
-        if self.user.email_verify == True:
+        if self.user.email_verify:
             if self.user.user_active:
                 login(self.request, self.user)
                 return super().form_valid(form)
@@ -105,15 +104,17 @@ class LogoutView(View):
 
 
 def user(request):
-    try:
-        user = request.user
+    user = request.user
+    if user.is_authenticated:
         return render(request, 'registration/user.html', context={'user': user})
-    except: 
-        user =  None
-        return render(request, 'registration/user.html', context={'user': user})
+    else:
+        return redirect(reverse('mylogin'))
 
 def user_update(request):
     user = request.user
+    if not user.is_authenticated:
+        return redirect(reverse('mylogin'))
+
     if request.method == "POST":
         form = ProfileForm(request.POST)
         if form.is_valid():
