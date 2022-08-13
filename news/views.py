@@ -31,8 +31,8 @@ def home(request):
 def one_post(request, post_id):
     try:
         one_post = Posts.objects.get(pk=post_id)
-        like = Like.objects.filter(post=post_id).count()
-        comments = Comments.objects.filter(post=post_id)
+        like = one_post.post_likes.count()
+        comments = one_post.post_comments.all()
         all_comments = comments.count()
         context={
             'one_post': one_post, 
@@ -44,3 +44,4 @@ def one_post(request, post_id):
 
     except Posts.DoesNotExist: 
         raise Http404(f"Not found post_id {post_id}")
+

@@ -10,9 +10,6 @@ class Posts(models.Model):
     categories = models.ForeignKey('Heading', on_delete=models.CASCADE, related_name='category', blank=True)
     image = models.ImageField(upload_to='static/images/', default='static/images/none.jpg', blank=True, null=True)
     alt_image = models.CharField(max_length=50)
-    likes = models.ForeignKey('Like', null=True, on_delete=models.CASCADE, related_name='likes', blank=True)
-    comments_post = models.ForeignKey('Comments', null=True, related_name='comments_post', on_delete = models.DO_NOTHING, blank=True)
-
 
     def __str__(self):
         return f"{self.title}"
@@ -26,7 +23,7 @@ class Posts(models.Model):
 
 
 class Comments(models.Model):
-    post = models.ForeignKey(Posts, on_delete=models.CASCADE, blank=True)
+    post = models.ForeignKey(Posts, on_delete=models.CASCADE, blank=True, related_name='post_comments')
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     body = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
@@ -40,7 +37,7 @@ class Comments(models.Model):
         verbose_name_plural = 'Коментарии'
 
 class Like(models.Model):
-    post = models.ForeignKey(Posts, on_delete=models.CASCADE)
+    post = models.ForeignKey(Posts, on_delete=models.CASCADE, related_name='post_likes')
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     like = models.BooleanField('like', default=False)
 

@@ -4,22 +4,6 @@ from django.urls import reverse
 from news.models import Posts, Comments, Like, Heading
 from accounts.models import User
 
-# class YourTestClass(TestCase):
-
-#     def setUp(self):
-#         # Установки запускаются перед каждым тестом
-#         pass
-
-#     def tearDown(self):
-#         # Очистка после каждого метода
-#         pass
-
-#     def test_something_that_will_pass(self):
-#         self.assertFalse(False)
-
-#     def test_something_that_will_fail(self):
-#         self.assertTrue(False)
-
 
 class UserModelTest(TestCase):
 

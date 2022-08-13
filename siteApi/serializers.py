@@ -40,19 +40,13 @@ class CommentsSerializer(serializers.ModelSerializer):
         fields = ['post', 'author', 'body', 'created']
 
 
-class PostSerializer(serializers.ModelSerializer):
-    
-    class Meta:
-        model = Posts
-        fields = ['title', 'body', 'image', 'comments_post', 'likes']
-
-
 class FoolPostSerializer(serializers.Serializer):
     title = serializers.CharField(max_length=150)
     body = serializers.CharField()
-    image = serializers.CharField()
+    image = serializers.ImageField()
     comments = serializers.ListField()
     likes = serializers.IntegerField()
+    all_comments = serializers.IntegerField()
     
 
 class ProfileSerializer(serializers.ModelSerializer):

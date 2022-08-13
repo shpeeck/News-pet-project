@@ -4,36 +4,38 @@
 
 <br>
 <div class="container">
-    <div class="row">
-        <div class="col-md-12 col-sm-6 col-12 mb-30">
-            <div class="media item-shadow-gray bg-body media-none--sm">
-                <div class="position-relative width-36 width43-lg">
-                    <div class="topic-box-top-xs">
-                        <div class="topic-box-sm color-cod-gray mb-20">Изменить информацию</div>
+    <div class="full-page">
+        <div class="row">
+            <div class="col-md-12 col-sm-6 col-12 mb-30">
+                <div class="media item-shadow-gray bg-body media-none--sm">
+                    <div class="position-relative width-36 width43-lg">
+                        <div class="topic-box-top-xs">
+                            <div class="topic-box-sm color-cod-gray mb-20">Изменить информацию</div>
+                        </div>
                     </div>
-                </div>
-                <div class="media-body media-padding30 p-mb-none-child">
-                    {% if user.is_authenticated %}
-                    <div class="">
-                        <form method="post" action="" enctype="multipart/form-data">
-                            {% csrf_token %}
-                            {% for field in form %}
-                            <div class="">
-                                {{ field.errors }}
-                                {{ field.label_tag }} {{ field }}
-                                {% if field.help_text %}
-                                <p class="">{{ field.help_text|safe }}</p>
-                                {% endif %}
-                            </div>
-                            {% endfor %}
-                            <div class="">
-                                <input type="submit" value="Сохранить" />
-                            </div>
-                        </form>
+                    <div class="media-body media-padding30 p-mb-none-child">
+                        {% if user.is_authenticated %}
+                        <div class="">
+                            <form method="post" action="" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {% for field in form %}
+                                <div class="">
+                                    {{ field.errors }}
+                                    {{ field.label_tag }} {{ field }}
+                                    {% if field.help_text %}
+                                    <p class="">{{ field.help_text|safe }}</p>
+                                    {% endif %}
+                                </div>
+                                {% endfor %}
+                                <div class="">
+                                    <input type="submit" value="Сохранить" />
+                                </div>
+                            </form>
+                        </div>
+                        {% else %}
+                        <p>Вы не можете просматривать данную страницу. Авторизируйтесь пожалуйста.</p>
+                        {% endif %}
                     </div>
-                    {% else %}
-                    <p>Вы не можете просматривать данную страницу. Авторизируйтесь пожалуйста.</p>
-                    {% endif %}
                 </div>
             </div>
         </div>

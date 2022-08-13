@@ -50,7 +50,8 @@
             <div class="topic-box-lg color-azure-radiance">Коментарии</div>
             {% if comments %}
             {% for comment in comments %}
-            <div>
+            <div class="one-commetn">
+                <h3>{{ comment.author.first_name }}</h3>
                 <p>{{ comment.body }}</p>
             </div>
             {% endfor %}

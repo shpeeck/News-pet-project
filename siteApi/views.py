@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from news.models import Posts, Like, Comments, Heading
 from accounts.models import User
-from .serializers import PostsSerializer, LikesSerializer, CommentsSerializer, PostSerializer, ProfileSerializer, CatSerializer, TopSerializer, GetProfileSerializer, FoolPostSerializer
+from .serializers import PostsSerializer, LikesSerializer, CommentsSerializer,  ProfileSerializer, CatSerializer, TopSerializer, GetProfileSerializer, FoolPostSerializer
 from rest_framework.views import APIView
 from rest_framework.pagination import LimitOffsetPagination
 from django_filters.rest_framework import DjangoFilterBackend
@@ -15,6 +15,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_201_CREATED, HTTP_200_OK
 
 from datetime import datetime
+import dateutil.relativedelta as relativedelta
 
 
 class PostsApiView(ModelViewSet, LimitOffsetPagination):
@@ -28,22 +29,21 @@ class PostsApiView(ModelViewSet, LimitOffsetPagination):
 
 @api_view(http_method_names=['GET'])
 def post(request, post_id):
-    all_likes = Like.objects.filter(post=post_id).count()
     post = Posts.objects.get(id=post_id)
-    all_comments = Comments.objects.filter(post=post_id).count()
-    comments = []
-    for i in Comments.objects.filter(post=post_id):
+    all_likes = post.post_likes.count()
+    comments = post.post_comments.all()
+    all_comments = comments.count()
+    comments_list = []
+    for i in comments:
         comment = {
             'author': i.author.first_name, 
             'body': i.body,
             'created': i.created 
         }
-        comments.append(comment)
-    data = {'title': post.title, 'body': post.body, 'image': post.image}
-    serializer = PostSerializer(data=data)
-    serializer.is_valid(raise_exception=True)
-    new_data = {**serializer.data, 'likes': all_likes, 'comments': comments, 'all_comments': all_comments}
-    serializer = FoolPostSerializer(data=new_data)
+        comments_list.append(comment)
+    data = {'title': post.title, 'body': post.body, 'image': post.image, 'comments': comments_list, 'likes': all_likes, 'all_comments': all_comments}
+    print('data', data)
+    serializer = FoolPostSerializer(data=data)
     serializer.is_valid(raise_exception=True)
     return Response(serializer.data, status=HTTP_200_OK)
 
@@ -140,16 +140,13 @@ class CatApiView(ModelViewSet):
 
 @api_view(['GET'])
 def top_news(request):
-    now_date = datetime.now()
-    now_date = now_date.replace(tzinfo=None)
-    posts = Posts.objects.all()
+    three_days = datetime.now().today() - relativedelta.relativedelta(days=3)
+    posts = Posts.objects.filter(created__gte=three_days)
     top = []
     for i in posts:
-        date = i.created.replace(tzinfo=None)
-        a = now_date - date
         like = Like.objects.filter(post=i.id).count()
         comments = Comments.objects.filter(post=i.id).count()
-        if like > 10 and comments > 10 and a.days <= 3 :
+        if like >= 10 and comments >= 10:
             post = {
                 'id': i.id,
                 'title': i.title,
