@@ -4,11 +4,6 @@
 - Устанавливаем зависимости pip install -r requirements.txt
 - Запускаем проект -  python manage.py runserver
 
-
-SuperUser - email: shpeeck@gmail.com, name: admin, pass: admin123
-user - jenya_vas@mail.ru zx78op00
-auth_token - 90482ac416a068ebc3feea0a37a9c3961b193a9c
-
 -------------------------------------------
 Endpoints
 - http://127.0.0.1:8000/api/all-news/ - все новости с пагинацией

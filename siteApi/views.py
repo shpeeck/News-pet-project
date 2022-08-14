@@ -42,7 +42,6 @@ def post(request, post_id):
         }
         comments_list.append(comment)
     data = {'title': post.title, 'body': post.body, 'image': post.image, 'comments': comments_list, 'likes': all_likes, 'all_comments': all_comments}
-    print('data', data)
     serializer = FoolPostSerializer(data=data)
     serializer.is_valid(raise_exception=True)
     return Response(serializer.data, status=HTTP_200_OK)
